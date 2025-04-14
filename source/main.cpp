@@ -1,5 +1,4 @@
-// g++ main.cpp -o vicad-test -lsfml-system -lsfml-window
-
+// g++ main.cpp -o VimEDA-test -lsfml-system -lsfml-window
 
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
@@ -7,6 +6,9 @@
 #include <ostream>
 #include <string>
 /*#include <thread>*/
+
+#include "default-symbols.h"
+
 const int window_w = 30;
 const int window_h = 60;
 
@@ -14,56 +16,6 @@ struct pos{
     int x;
     int y;
 } user_position;
-
-std::string resistor_ascii="\n ___\n┤   ├\n ‾‾‾\n";
-
-//
-//      ___
-//     ┤   ├
-//      ‾‾‾
-//
-struct Resistor{
-    int x;
-    int y;
-    std::string symbol = resistor_ascii;
-};
-
-//NOTE: probably more spaces are needed for this to work. 5x5 boxes are needed
-std::string capacitor_ascii= "\n| |\n┤ ├\n| |\n";
-//
-//     | |
-//     ┤ ├
-//     | |
-//
-struct Capacitor{
-    int x;
-    int y;
-    std::string symbol = capacitor_ascii;
-};
-
-std::string opamp_ascii= " |╲| \n | ╲ \n ┤  ├ \n | ╱ \n |╱| ";
-//     |╲|
-//     | ╲
-//     ┤  ├
-//     | ╱
-//     |╱|
-struct Opamp{
-    int x;
-    int y;
-    std::string symbol = opamp_ascii;
-};
-
-//     
-//     
-//     -◠◠◠-
-//     
-//     
-struct Inductor{
-    int x;
-    int y;
-    /*std::string symbol = inductor_ascii;*/
-};
-
 
 /*thread thread1(up, intarg1);*/
 /*thread thread2(move_left, intarg2);*/
@@ -142,6 +94,11 @@ int place(std::string object_name){
         std::cout<<op.symbol<<std::endl;
     }
 
+    else if (object_name == "inductor"){
+        Inductor ind;
+        std::cout<<ind.symbol<<std::endl;
+    }
+
     sf::sleep(sf::milliseconds(100));
     return 0;
     }
@@ -185,6 +142,10 @@ int main (int argc, char *argv[]) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)){
             place("opamp");
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
+            place("inductor");
         }
 
         sf::sleep(sf::milliseconds(10));
